@@ -74,6 +74,7 @@
               <!-- /.card-header -->
               <div class="card-body">
               <a href="tambahpengguna.php" class="btn btn-md btn-default" role="button" style="background-color: #000435;"><font color="#ffffff"><i class="fas fa-plus"></i>  Tambah data</a></font>
+              <button type="button" class="btn btn-md btn-default" data-toggle="modal" data-target="#modal-tambah"  style="background-color: #000435;"><font color="#ffffff"><i class="fas fa-plus"></i> Tambah data modal </font></button>
 
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
@@ -138,33 +139,77 @@
    ?>
 </div>
 <!-- ./wrapper -->
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form action="hapuspengguna.php" role="form" class="form-layout" method="POST">
+        <div class="alert alert-warning alert-dismissible">
+            <h5><i class="icon fas fa-exclamation-triangle"></i> Perhatian!</h5>
+            <p><b>Apakah anda akan menghapus data?</b></p>
+
+          </div>
+        <input type="text" name="nip_pengguna" id="nip" hidden>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default btn-md" data-dismiss="modal"><i class="fas fa-times"></i> Batalkan</button>
+        <button type="submit" class="btn btn-danger btn-md" >Ya, Hapus Data</button>
+      </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-tambah">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #000435;">
+        <h4 class="modal-title"> <font color="#ffffff"><i class="fas fa-plus"></i> Tambah Data Pengguna </font></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="proses.php" role="form" class="form-layout" method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+          <label for="nip">NIP</label>
+          <input type="text" class="form-control" id="nip" name="nip" required autofocus>
+        </div>
+        <div class="form-group">
+          <label for="user">Nama User</label>
+          <input type="text" class="form-control" id="nama" name="nama" required>
+        </div>
+        <div class="form-group">
+          <label for="user">Username</label>
+          <input type="text" class="form-control" id="user" name="user" required>
+        </div>
+        <div class="form-group">
+          <label for="passbaru">Ketik Password</label>
+          <input type="password" class="form-control" id="passbaru" name="pass" placeholder="Password" required >
+        </div>
+        
+        
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-warning" name="simpan"><i class="fas fa-download"></i>  Simpan Data</button>
+      </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <?php
 include '../script.php';
 ?>
-      <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body">
-              <form action="hapuspengguna.php" role="form" class="form-layout" method="POST">
-              <div class="alert alert-warning alert-dismissible">
-                  <h5><i class="icon fas fa-exclamation-triangle"></i> Perhatian!</h5>
-                  <p><b>Apakah anda akan menghapus data?</b></p>
-
-                </div>
-              <input type="text" name="nip_pengguna" id="nip" hidden>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default btn-md" data-dismiss="modal"><i class="fas fa-times"></i> Batalkan</button>
-              <button type="submit" class="btn btn-danger btn-md" >Ya, Hapus Data</button>
-            </div>
-            </form>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-
+      
       
 <script type="text/javascript">
   $('#modal-default').on('show.bs.modal' , function (e) {
