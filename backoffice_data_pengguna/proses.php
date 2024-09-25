@@ -78,7 +78,7 @@
 
                 if (mysqli_num_rows($cekdata) > 0) {
                     ?>
-                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    <script src="../assets_adminlte/dist/js/sweetalert.min.js"></script>
                     <script>
                     swal("Error", "NIP sudah ada dalam database", "error");
                     
@@ -91,7 +91,7 @@
                 } else {
                     mysqli_query($con, "INSERT INTO tbl_pengguna VALUES ('$nip','$user','$pass','$nama')") or die (mysqli_error($con));
                     ?>
-                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    <script src="../assets_adminlte/dist/js/sweetalert.min.js"></script>
                     <script>
                     swal("Berhasil", "Data Admin berhasil ditambah", "success");
                     
@@ -102,6 +102,26 @@
                     </script> 
                     <?php
                 }
+              }
+
+              if (isset($con, $_POST['edit'])) {
+                $nip  = trim(mysqli_real_escape_string($con, $_POST['nip2']));
+                $nama = trim(mysqli_real_escape_string($con, $_POST['nama']));
+                $user = trim(mysqli_real_escape_string($con, $_POST['user']));
+
+                mysqli_query($con, "UPDATE tbl_pengguna SET nama='$nama', username='$user' WHERE NIP='$nip'")or die(mysqli_error($con));
+                ?>
+
+                <script src="../assets_adminlte/dist/js/sweetalert.min.js"></script>
+                <script>
+                swal("Berhasil", "Data Admin berhasil diedit", "success");
+                
+                setTimeout(function(){ 
+                window.location.href = "../backoffice_data_pengguna";
+
+                }, 1000);
+                </script> 
+                <?php
               }
            ?>
            </div>

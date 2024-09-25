@@ -79,11 +79,11 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th width="5%">No</th>
+                    <th width="5%"><center>No</center></th>
                     <th width="20%">NIP</th>
                     <th>Nama Pengguna</th>
                     <th>Username</th>
-                    <th>Action</th>
+                    <th><center>Action</center></th>
                   </tr>
                   </thead>
                   <tbody>
@@ -96,12 +96,20 @@
                       {
                         ?>
                         <tr>
-                          <td><?= $no++;?></td>
+                          <td><center> <?= $no++;?> </center></td>
                           <td><?= $data['NIP'];?></td>
                           <td><?= $data['nama']?></td>
                           <td><?= $data['username'];?></td>
                           <td>
+                            <center>
                             <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-default" data-nip="<?= $data['NIP'];?>"><i class="fas fa-trash"></i>Hapus</button>
+
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-edit" 
+                            data-nip="<?= $data['NIP'];?>"
+                            data-nama="<?= $data['nama'];?>"
+                            data-user="<?= $data['username'];?>"
+                            ><i class="fas fa-edit"></i> Edit</button>
+                            </center>
                           </td>
                         </tr>
                         <?php
@@ -167,7 +175,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #000435;">
-        <h4 class="modal-title"> <font color="#ffffff"><i class="fas fa-plus"></i> Tambah Data Pengguna </font></h4>
+        <h5 class="modal-title"> <font color="#ffffff"><i class="fas fa-plus"></i> Tambah Data Pengguna </font></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -195,8 +203,48 @@
         
       </div>
       <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
         <button type="submit" class="btn btn-warning" name="simpan"><i class="fas fa-download"></i>  Simpan Data</button>
+      </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<div class="modal fade" id="modal-edit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #000435;">
+        <h5 class="modal-title"> <font color="#ffffff"><i class="fas fa-edit"></i> Edit Data Pengguna </font></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="proses.php" role="form" class="form-layout" method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+          <label for="nip">NIP</label>
+          <input type="text" class="form-control" id="nip" name="nip" disabled>
+          <input type="text" class="form-control" id="nip2" name="nip2" hidden >
+        </div>
+        <div class="form-group">
+          <label for="user">Nama User</label>
+          <input type="text" class="form-control" id="nama" name="nama" required>
+        </div>
+        <div class="form-group">
+          <label for="user">Username</label>
+          <input type="text" class="form-control" id="user" name="user" required>
+        </div>
+        
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+        <button type="submit" class="btn btn-warning" name="edit"><i class="fas fa-sync"></i>  Edit Data</button>
       </div>
       </form>
     </div>
@@ -216,6 +264,21 @@ include '../script.php';
     var nip = $(e.relatedTarget).data('nip');
 
     $(e.currentTarget).find('input[name="nip_pengguna"]').val(nip);
+
+  });
+
+</script>
+
+<script type="text/javascript">
+  $('#modal-edit').on('show.bs.modal' , function (e) {
+    var nip = $(e.relatedTarget).data('nip');
+    var nama = $(e.relatedTarget).data('nama');
+    var user = $(e.relatedTarget).data('user');
+
+    $(e.currentTarget).find('input[name="nip"]').val(nip);
+    $(e.currentTarget).find('input[name="nip2"]').val(nip);
+    $(e.currentTarget).find('input[name="nama"]').val(nama);
+    $(e.currentTarget).find('input[name="user"]').val(user);
 
   });
 
