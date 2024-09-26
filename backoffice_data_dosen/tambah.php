@@ -79,27 +79,50 @@
         <div class="row">
           <div class="col-lg-12">
           <?php
+            if (isset($con, $_POST['simpan'])) {
+                $nidn   = trim(mysqli_real_escape_string($con, $_POST['nidn']));
+                $nama   = trim(mysqli_real_escape_string($con, $_POST['nama']));
+                $email  = trim(mysqli_real_escape_string($con, $_POST['email']));
+                $kontak = trim(mysqli_real_escape_string($con, $_POST['kontak']));
+                $status = trim(mysqli_real_escape_string($con, $_POST['status']));
+                $pass   = sha1($nidn);
+                $stat   = 1; 
 
-          if (isset($con, $_POST['hapus'])) {
-            $nidn = trim(mysqli_real_escape_string($con, $_POST['nidn']));
+                $sql_cek = mysqli_query($con, "SELECT nidn FROM tbl_dosen WHERE nidn='$nidn'")or die(mysqli_error($con));
 
-            mysqli_query($con, "DELETE FROM tbl_dosen WHERE nidn = '$nidn'") or die (mysqli_error($con));
-            mysqli_query($con, "DELETE FROM tbl_pengguna WHERE username = '$nidn'") or die (mysqli_error($con));
+                if (mysqli_num_rows($sql_cek) > 0) {
+                    echo '
+                    <script src="../assets_adminlte/dist/js/sweetalert.min.js"></script>
+                    <script>
+                    swal("Perhatian !", "Data dosen dengan NIDN '.$nidn.' sudah ada", "warning");
+        
+                    setTimeout(function(){ 
+                    window.location.href = "../backoffice_data_dosen";
+        
+                    }, 1500);
+                    </script> 
+                    ';
+                }else {
+                    mysqli_query($con, "INSERT INTO tbl_dosen VALUES ('$nidn','$nama','$email','$kontak','$status')")or die(mysqli_error($con));
 
-            ?>
-            <script src="../assets_adminlte/dist/js/sweetalert.min.js"></script>
-            <script>
-            swal("Berhasil", "Data Berhasil dihapus", "success");
+                    mysqli_query($con, "INSERT INTO tbl_pengguna VALUES ('$nidn','$nidn','$pass','$nama','$stat')")or die(mysqli_error($con));
 
-            setTimeout(function(){ 
-            window.location.href = "../backoffice_data_dosen";
-
-            }, 1000);
-            </script> 
-            <?php
-          }
-          ?>
+                    echo '
+                    <script src="../assets_adminlte/dist/js/sweetalert.min.js"></script>
+                    <script>
+                    swal("Berhasil", "Data Dosen Berhasil ditambah", "success");
+        
+                    setTimeout(function(){ 
+                    window.location.href = "../backoffice_data_dosen";
+        
+                    }, 1000);
+                    </script> 
+                    ';
+                }
             
+            }
+            ?>
+           
         
            </div>
          </div>

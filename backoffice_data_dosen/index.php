@@ -128,8 +128,17 @@
 
                                 </td>
                                 <td>
+                                  <center>
                                 <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-default" data-nidn="<?= $data['nidn'];?>" ><i class="fas fa-trash"></i>Hapus</button>
 
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-edit"
+                                data-nidn="<?= $data['nidn'];?>"
+                                data-nama="<?= $data['nama'];?>"
+                                data-email="<?= $data['email'];?>"
+                                data-kontak="<?= $data['kontak'];?>"
+                                data-status="<?= $stat;?>"
+                                ><i class="fas fa-edit"></i> Edit</button>
+                                </center>
                                 </td>
                             </tr>
                             <?php
@@ -181,7 +190,7 @@
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default btn-md" data-dismiss="modal"><i class="fas fa-times"></i> Batalkan</button>
-        <button type="submit" class="btn btn-danger btn-md" >Ya, Hapus Data</button>
+        <button type="submit" class="btn btn-danger btn-md" name="hapus">Ya, Hapus Data</button>
       </div>
       </form>
     </div>
@@ -195,29 +204,37 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #000435;">
-        <h5 class="modal-title"> <font color="#ffffff"><i class="fas fa-plus"></i> Tambah Data Pengguna </font></h5>
+        <h5 class="modal-title"> <font color="#ffffff"><i class="fas fa-plus"></i> Tambah Data Dosen </font></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <form action="proses.php" role="form" class="form-layout" method="POST" enctype="multipart/form-data">
+      <form action="tambah.php" role="form" class="form-layout" method="POST" enctype="multipart/form-data">
 
         <div class="form-group">
-          <label for="nip">NIP</label>
-          <input type="text" class="form-control" id="nip" name="nip" required autofocus>
+          <label for="nidn">NIDN</label>
+          <input type="number" class="form-control" id="nidn" name="nidn" required autofocus>
         </div>
         <div class="form-group">
-          <label for="user">Nama User</label>
+          <label for="nama">Nama Dosen</label>
           <input type="text" class="form-control" id="nama" name="nama" required>
         </div>
         <div class="form-group">
-          <label for="user">Username</label>
-          <input type="text" class="form-control" id="user" name="user" required>
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="form-group">
-          <label for="passbaru">Ketik Password</label>
-          <input type="password" class="form-control" id="passbaru" name="pass" placeholder="Password" required >
+          <label for="kontak">Kontak</label>
+          <input type="number" class="form-control" id="kontak" name="kontak" required >
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select name="status" id="status"  class="form-control" required>
+            <option value=""> -- Pilih Status -- </option>
+            <option value="Y"> Aktif </option>
+            <option value="N"> Tidak Aktif </option>
+          </select>
         </div>
         
         
@@ -239,26 +256,38 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #000435;">
-        <h5 class="modal-title"> <font color="#ffffff"><i class="fas fa-edit"></i> Edit Data Pengguna </font></h5>
+        <h5 class="modal-title"> <font color="#ffffff"><i class="fas fa-edit"></i> Edit Data Dosen </font></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <form action="proses.php" role="form" class="form-layout" method="POST" enctype="multipart/form-data">
+      <form action="edit.php" role="form" class="form-layout" method="POST" enctype="multipart/form-data">
 
         <div class="form-group">
-          <label for="nip">NIP</label>
-          <input type="text" class="form-control" id="nip" name="nip" disabled>
-          <input type="text" class="form-control" id="nip2" name="nip2" hidden >
+          <label for="nidn">NIDN</label>
+          <input type="number" class="form-control" id="nidn" name="nidn" disabled>
+          <input type="number" class="form-control" id="nidn" name="nidn2" hidden>
         </div>
         <div class="form-group">
-          <label for="user">Nama User</label>
+          <label for="nama">Nama Dosen</label>
           <input type="text" class="form-control" id="nama" name="nama" required>
         </div>
         <div class="form-group">
-          <label for="user">Username</label>
-          <input type="text" class="form-control" id="user" name="user" required>
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="kontak">Kontak</label>
+          <input type="number" class="form-control" id="kontak" name="kontak" required >
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select name="status" id="status"  class="form-control" required>
+            <option value=""> -- Pilih Status -- </option>
+            <option value="Y"> Aktif </option>
+            <option value="N"> Tidak Aktif </option>
+          </select>
         </div>
         
       </div>
@@ -291,14 +320,18 @@ include '../script.php';
 
 <script type="text/javascript">
   $('#modal-edit').on('show.bs.modal' , function (e) {
-    var nip = $(e.relatedTarget).data('nip');
-    var nama = $(e.relatedTarget).data('nama');
-    var user = $(e.relatedTarget).data('user');
+    var nidn   = $(e.relatedTarget).data('nidn');
+    var nama   = $(e.relatedTarget).data('nama');
+    var email  = $(e.relatedTarget).data('email');
+    var kontak = $(e.relatedTarget).data('kontak');
+    var status = $(e.relatedTarget).data('status');
 
-    $(e.currentTarget).find('input[name="nip"]').val(nip);
-    $(e.currentTarget).find('input[name="nip2"]').val(nip);
+    $(e.currentTarget).find('input[name="nidn"]').val(nidn);
+    $(e.currentTarget).find('input[name="nidn2"]').val(nidn);
     $(e.currentTarget).find('input[name="nama"]').val(nama);
-    $(e.currentTarget).find('input[name="user"]').val(user);
+    $(e.currentTarget).find('input[name="email"]').val(email);
+    $(e.currentTarget).find('input[name="kontak"]').val(kontak);
+    $(e.currentTarget).find('select[name="status"]').val(status);
 
   });
 

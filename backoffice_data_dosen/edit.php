@@ -79,27 +79,33 @@
         <div class="row">
           <div class="col-lg-12">
           <?php
+            if (isset($con, $_POST['edit'])) {
+                $nidn   = trim(mysqli_real_escape_string($con, $_POST['nidn2']));
+                $nama   = trim(mysqli_real_escape_string($con, $_POST['nama']));
+                $email  = trim(mysqli_real_escape_string($con, $_POST['email']));
+                $kontak = trim(mysqli_real_escape_string($con, $_POST['kontak']));
+                $status = trim(mysqli_real_escape_string($con, $_POST['status']));
+                
+               
+                mysqli_query($con, "UPDATE tbl_dosen SET nama='$nama',email='$email',kontak='$kontak',status='$status' WHERE nidn='$nidn'")or die(mysqli_error($con));
 
-          if (isset($con, $_POST['hapus'])) {
-            $nidn = trim(mysqli_real_escape_string($con, $_POST['nidn']));
+                mysqli_query($con, "UPDATE tbl_pengguna SET nama='$nama' WHERE NIP='$nidn'")or die(mysqli_error($con));
 
-            mysqli_query($con, "DELETE FROM tbl_dosen WHERE nidn = '$nidn'") or die (mysqli_error($con));
-            mysqli_query($con, "DELETE FROM tbl_pengguna WHERE username = '$nidn'") or die (mysqli_error($con));
-
-            ?>
-            <script src="../assets_adminlte/dist/js/sweetalert.min.js"></script>
-            <script>
-            swal("Berhasil", "Data Berhasil dihapus", "success");
-
-            setTimeout(function(){ 
-            window.location.href = "../backoffice_data_dosen";
-
-            }, 1000);
-            </script> 
-            <?php
-          }
-          ?>
+                echo '
+                <script src="../assets_adminlte/dist/js/sweetalert.min.js"></script>
+                <script>
+                swal("Berhasil", "Data Dosen Berhasil diubah", "success");
+    
+                setTimeout(function(){ 
+                window.location.href = "../backoffice_data_dosen";
+    
+                }, 1000);
+                </script> 
+                ';
+            }
             
+            ?>
+           
         
            </div>
          </div>
