@@ -10,6 +10,17 @@
   require_once '../database/config.php';
   session_start();
   $halaman = 'data_pengguna';
+
+ if (isset($_SESSION['status'])) {
+    $status = $_SESSION['status'];
+    if ($status != 0 ) {
+      echo '<script>window.location = "../auth/logout.php" </script>';
+    }
+  }else {
+    echo '<script>window.location = "../auth/logout.php" </script>';
+  }
+
+
   ?>
 </head>
 <!--
@@ -73,8 +84,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <a href="tambahpengguna.php" class="btn btn-md btn-default" role="button" style="background-color: #000435;"><font color="#ffffff"><i class="fas fa-plus"></i>  Tambah data</a></font>
-              <button type="button" class="btn btn-md btn-default" data-toggle="modal" data-target="#modal-tambah"  style="background-color: #000435;"><font color="#ffffff"><i class="fas fa-plus"></i> Tambah data modal </font></button>
+              <!-- <a href="tambahpengguna.php" class="btn btn-md btn-default" role="button" style="background-color: #000435;"><font color="#ffffff"><i class="fas fa-plus"></i>  Tambah data</a></font>
+              -->
+              <button type="button" class="btn btn-md btn-default" data-toggle="modal" data-target="#modal-tambah"  style="background-color: #000435;"><font color="#ffffff"><i class="fas fa-plus"></i> Tambah data </font></button>
 
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
@@ -89,7 +101,8 @@
                   <tbody>
                     <?php
                     $no = 1;
-                    $sql_panggilpengguna = mysqli_query($con, "SELECT * FROM tbl_pengguna")or die(mysqli_error($con));
+                    $stat = 0;
+                    $sql_panggilpengguna = mysqli_query($con, "SELECT * FROM tbl_pengguna WHERE stat ='$stat'")or die(mysqli_error($con));
                     if (mysqli_num_rows($sql_panggilpengguna) > 0) 
                     {
                       while($data = mysqli_fetch_array($sql_panggilpengguna))

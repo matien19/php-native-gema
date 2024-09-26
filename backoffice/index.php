@@ -9,6 +9,16 @@
   include '../list_head_link.php';
   session_start();
   $halaman = 'dashboard';
+
+  if (isset($_SESSION['status'])) {
+    $status = $_SESSION['status'];
+    if ($status != 0 ) {
+      echo '<script>window.location = "../auth/logout.php" </script>';
+    }
+  }else {
+    echo '<script>window.location = "../auth/logout.php" </script>';
+  }
+
   ?>
 </head>
 <!--
@@ -65,7 +75,7 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-         
+         status = <?= $status;?>, ini dashboard admin
         </div>
         <!-- /.row -->
       </div>

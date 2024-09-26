@@ -73,6 +73,7 @@
                 $nama     = trim(mysqli_real_escape_string($con, $_POST['nama']));
                 $user     = trim(mysqli_real_escape_string($con, $_POST['user']));
                 $pass     = sha1(trim(mysqli_real_escape_string($con, $_POST['pass'])));
+                $stat     = 0;
 
                 $cekdata  = mysqli_query($con, "SELECT * FROM tbl_pengguna WHERE NIP='$nip'") or die (mysqli_error($con));
 
@@ -89,7 +90,7 @@
                     </script> 
                     <?php
                 } else {
-                    mysqli_query($con, "INSERT INTO tbl_pengguna VALUES ('$nip','$user','$pass','$nama')") or die (mysqli_error($con));
+                    mysqli_query($con, "INSERT INTO tbl_pengguna VALUES ('$nip','$user','$pass','$nama','$stat')") or die (mysqli_error($con));
                     ?>
                     <script src="../assets_adminlte/dist/js/sweetalert.min.js"></script>
                     <script>

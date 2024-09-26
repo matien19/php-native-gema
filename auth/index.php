@@ -69,13 +69,23 @@
               $data = mysqli_fetch_array($sql_login);
               $nip  = $data['NIP'];
               $nama = $data['nama'];
+              $status = $data['stat'];
               session_start();
               $_SESSION['user'] = $username;
               $_SESSION['nama'] = $nama;
               $_SESSION['nip']  = $nip;
+              $_SESSION['status']  = $status;
               
-              echo '<script>window.location="../backoffice"</script>';
+                if ($status == 0) {
+                  echo '<script>window.location="../backoffice"</script>';
+                } elseif ($status == 1) {
+                  echo '<script>window.location="../dosen_dashboard"</script>';
+                } elseif ($status == 2) {
+                  echo '<script>window.location="../mhs_dashboard"</script>';
+                }
+              
               } else {
+                session_destroy();
                 echo '<script>window.location="../gagal"</script>';
               }
           }

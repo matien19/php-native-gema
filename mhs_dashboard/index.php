@@ -7,9 +7,18 @@
   <link rel="shortcut icon" href="../auth/assets/img/logo.png">
   <?php
   include '../list_head_link.php';
-  require_once '../database/config.php';
   session_start();
-  $halaman = 'data_pengguna';
+  $halaman = 'dashboard';
+
+  if (isset($_SESSION['status'])) {
+    $status = $_SESSION['status'];
+    if ($status != 2 ) {
+      echo '<script>window.location = "../auth/logout.php" </script>';
+    }
+  }else {
+    echo '<script>window.location = "../auth/logout.php" </script>';
+  }
+
   ?>
 </head>
 <!--
@@ -42,7 +51,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
     <?php
-    include '../sidebar.php';
+    include '../sidebar_mhs.php';
     ?>
     </div>
     <!-- /.sidebar -->
@@ -55,7 +64,7 @@
       <div class="container-fluid">
       <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Data Pengguna / Tambah Pengguna</h1>
+            <h1 class="m-0">Dashboard</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -66,47 +75,8 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-6">
-          <?php
-              if (isset($con, $_POST['simpan'])) {
-                $nip      = trim(mysqli_real_escape_string($con, $_POST['nip']));
-                $nama     = trim(mysqli_real_escape_string($con, $_POST['nama']));
-                $user     = trim(mysqli_real_escape_string($con, $_POST['user']));
-                $pass     = sha1(trim(mysqli_real_escape_string($con, $_POST['pass'])));
-                $stat     = 0;
-
-                $cekdata  = mysqli_query($con, "SELECT * FROM tbl_pengguna WHERE NIP='$nip'") or die (mysqli_error($con));
-
-                if (mysqli_num_rows($cekdata) > 0) {
-                    ?>
-                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-                    <script>
-                    swal("Error", "NIP sudah ada dalam database", "error");
-                    
-                    setTimeout(function(){ 
-                    window.location.href = "tambahpengguna.php";
-
-                    }, 1000);
-                    </script> 
-                    <?php
-                } else {
-                    mysqli_query($con, "INSERT INTO tbl_pengguna VALUES ('$nip','$user','$pass','$nama','$stat')") or die (mysqli_error($con));
-                    ?>
-                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-                    <script>
-                    swal("Berhasil", "Data Admin berhasil ditambah", "success");
-                    
-                    setTimeout(function(){ 
-                    window.location.href = "../backoffice_data_pengguna";
-
-                    }, 1000);
-                    </script> 
-                    <?php
-                }
-              }
-           ?>
-          </div>
-         </div>
+         
+        </div>
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
@@ -128,6 +98,5 @@
 <?php
 include '../script.php';
 ?>
-    
 </body>
 </html>
