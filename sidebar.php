@@ -21,6 +21,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="../backoffice_data_dosen" class="nav-link <?php if($halaman == 'data_dosen'){echo 'active';} ?>">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Data Dosen
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="../ganti_pass" class="nav-link <?php if($halaman == 'ganti_pass'){echo 'active';} ?>">
               <i class="nav-icon fas fa-lock"></i>
               <p>
