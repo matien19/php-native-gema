@@ -21,6 +21,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="../backoffice_data_periode" class="nav-link <?php if($halaman == 'data_periode'){echo 'active';} ?>">
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>
+                Data Periode
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="../backoffice_data_dosen" class="nav-link <?php if($halaman == 'data_dosen'){echo 'active';} ?>">
               <i class="nav-icon fas fa-user"></i>
               <p>
