@@ -113,15 +113,11 @@
                                 
                                 <td>
                                   <center>
-                                <!-- <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-default" data-nidn="<?= $data['nidn'];?>" ><i class="fas fa-trash"></i>Hapus</button>
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-default" data-kodeperiode="<?= $data['kode_periode'];?>"><i class="fas fa-trash"></i>Hapus</button>
 
-                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-edit"
-                                data-nidn="<?= $data['nidn'];?>"
-                                data-nama="<?= $data['nama'];?>"
-                                data-email="<?= $data['email'];?>"
-                                data-kontak="<?= $data['kontak'];?>"
-                                data-status="<?= $stat;?>"
-                                ><i class="fas fa-edit"></i> Edit</button> -->
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-edit" data-kodeperiode="<?= $data['kode_periode'];?>" data-periode="<?= $data['keterangan'];?>"
+                                
+                                ><i class="fas fa-edit"></i> Edit</button>
                                 </center>
                                 </td>
                             </tr>
@@ -170,7 +166,7 @@
             <p><b>Apakah anda akan menghapus data?</b></p>
 
           </div>
-        <input type="text" name="nidn" id="nidn" hidden>
+        <input type="text" name="kode_periode" id="kode_periode" hidden>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default btn-md" data-dismiss="modal"><i class="fas fa-times"></i> Batalkan</button>
@@ -233,30 +229,15 @@
       <form action="edit.php" role="form" class="form-layout" method="POST" enctype="multipart/form-data">
 
         <div class="form-group">
-          <label for="nidn">NIDN</label>
-          <input type="number" class="form-control" id="nidn" name="nidn" disabled>
-          <input type="number" class="form-control" id="nidn" name="nidn2" hidden>
+          <label for="kode_periode">Kode Periode</label>
+          <input type="number" class="form-control" id="kode_periode" name="kode_periode" disabled>
+          <input type="number" class="form-control" id="kode_periode2" name="kode_periode" hidden>
         </div>
         <div class="form-group">
-          <label for="nama">Nama Periode</label>
-          <input type="text" class="form-control" id="nama" name="nama" required>
+          <label for="periode">Nama Periode</label>
+          <input type="text" class="form-control" id="periode" name="periode" required>
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-          <label for="kontak">Kontak</label>
-          <input type="number" class="form-control" id="kontak" name="kontak" required >
-        </div>
-        <div class="form-group">
-          <label for="status">Status</label>
-          <select name="status" id="status"  class="form-control" required>
-            <option value=""> -- Pilih Status -- </option>
-            <option value="Y"> Aktif </option>
-            <option value="N"> Tidak Aktif </option>
-          </select>
-        </div>
+      
         
       </div>
       <div class="modal-footer justify-content-between">
@@ -278,9 +259,9 @@ include '../script.php';
       
 <script type="text/javascript">
   $('#modal-default').on('show.bs.modal' , function (e) {
-    var nidn = $(e.relatedTarget).data('nidn');
+    var kd_eriode = $(e.relatedTarget).data('kodeperiode');
 
-    $(e.currentTarget).find('input[name="nidn"]').val(nidn);
+    $(e.currentTarget).find('input[name="kode_periode"]').val(kd_eriode);
 
   });
 
@@ -288,18 +269,13 @@ include '../script.php';
 
 <script type="text/javascript">
   $('#modal-edit').on('show.bs.modal' , function (e) {
-    var nidn   = $(e.relatedTarget).data('nidn');
-    var nama   = $(e.relatedTarget).data('nama');
-    var email  = $(e.relatedTarget).data('email');
-    var kontak = $(e.relatedTarget).data('kontak');
-    var status = $(e.relatedTarget).data('status');
+    var kode_periode   = $(e.relatedTarget).data('kodeperiode');
+    var periode   = $(e.relatedTarget).data('periode');
+   
 
-    $(e.currentTarget).find('input[name="nidn"]').val(nidn);
-    $(e.currentTarget).find('input[name="nidn2"]').val(nidn);
-    $(e.currentTarget).find('input[name="nama"]').val(nama);
-    $(e.currentTarget).find('input[name="email"]').val(email);
-    $(e.currentTarget).find('input[name="kontak"]').val(kontak);
-    $(e.currentTarget).find('select[name="status"]').val(status);
+    $(e.currentTarget).find('input[name="kode_periode"]').val(kode_periode);
+    $(e.currentTarget).find('input[name="periode"]').val(periode);
+    
 
   });
 
