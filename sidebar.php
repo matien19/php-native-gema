@@ -45,6 +45,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="../backoffice_data_mahasiswa" class="nav-link <?php if($halaman == 'data_mahasiswa'){echo 'active';} ?>">
+              <i class="nav-icon fas fa-user-graduate"></i>
+              <p>
+                Data Mahasiswa
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="../ganti_pass" class="nav-link <?php if($halaman == 'ganti_pass'){echo 'active';} ?>">
               <i class="nav-icon fas fa-lock"></i>
               <p>
