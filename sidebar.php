@@ -29,6 +29,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="../backoffice_data_jurusan" class="nav-link <?php if($halaman == 'data_jurusan'){echo 'active';} ?>">
+              <i class="nav-icon fas fa-university"></i>
+              <p>
+                Data Jurusan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="../backoffice_data_dosen" class="nav-link <?php if($halaman == 'data_dosen'){echo 'active';} ?>">
               <i class="nav-icon fas fa-user"></i>
               <p>
